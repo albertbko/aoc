@@ -56,10 +56,10 @@ def play_game(player1_deck, player2_deck):
         p2 = player2[0]
 
         # check for infinite game
-        for round in gamelog:
-            if player1 == round[0] and player2 == round[1]:
-                return 'player1', player1
-        gamelog.append(tuple((player1.copy(), player2.copy())))
+        p3 = player1 + [99999] + player2
+        if (p3 in gamelog):
+            return 'player1', player1
+        gamelog.append(p3)
 
         if p1 < len(player1) and p2 < len(player2):
             sub_winner, _ = play_game(player1[1:p1+1], player2[1:p2+1])
