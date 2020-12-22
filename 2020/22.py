@@ -46,9 +46,7 @@ def part1(player1_deck, player2_deck):
     # calculate score
     return calculate_score(winner)
 
-def play_game(player1_deck, player2_deck):
-    player1 = player1_deck
-    player2 = player2_deck
+def play_game(player1, player2):
     gamelog = []
 
     while (len(player1) > 0 and len(player2) > 0):
@@ -64,18 +62,14 @@ def play_game(player1_deck, player2_deck):
         if p1 < len(player1) and p2 < len(player2):
             sub_winner, _ = play_game(player1[1:p1+1], player2[1:p2+1])
             if (sub_winner == 'player1'):
-                player1.append(p1)
-                player1.append(p2)
+                player1.extend((p1,p2))
             elif (sub_winner == 'player2'):
-                player2.append(p2)
-                player2.append(p1)
+                player2.extend((p2,p1))
         else:
             if (p1 > p2):
-                player1.append(p1)
-                player1.append(p2)
+                player1.extend((p1,p2))
             elif (p2 > p1):
-                player2.append(p2)
-                player2.append(p1)
+                player2.extend((p2,p1))
         del player1[0]
         del player2[0]
 
@@ -89,7 +83,7 @@ def play_game(player1_deck, player2_deck):
     return winner, deck
 
 def part2(player1_deck, player2_deck):
-    winner, deck = play_game(player1_deck, player2_deck)
+    _, deck = play_game(player1_deck, player2_deck)
     return calculate_score2(deck)
 
 def main():
